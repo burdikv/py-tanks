@@ -8,7 +8,7 @@ from effects import Explosion
 
 
 class Tank(PivotSprite):
-    def __init__(self, x, y, angle, game):
+    def __init__(self, x, y, angle, game, ai=None):
         super().__init__()
         self.screen = game.screen
         self.clock = game.clock
@@ -57,6 +57,9 @@ class Tank(PivotSprite):
         self.moveSound = self.sounds.clone_sound("sound.tank")
         self.containedEffects = []
         self.isShielded = False
+        self.ai = ai
+        if ai is not None:
+            ai.set_tank(self)
 
     def render(self):
         if self.tankBody is None or self.turret is None or len(self.tracks) == 0:
@@ -258,8 +261,8 @@ class Player(Tank):
 
 
 class Enemy(Tank):
-    def __init__(self, x, y, angle, game):
-        super().__init__(x, y, angle, game)
+    def __init__(self, x, y, angle, game, ai):
+        super().__init__(x, y, angle, game, ai)
         self.tankBody = game.sprites.get_sprite("enemy.tank.body")
         self.turret = game.sprites.get_sprite("enemy.tank.turret")
         self.tracks.append(game.sprites.get_sprite("enemy.tank.track.a"))

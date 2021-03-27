@@ -14,6 +14,6 @@ class Game(object):
         self.enemies = []
         self.player = None
         self.sprites = Sprites()
-        self.ai = AI()
+#        self.ai = AI()
         self.ui = UI(self.screen)
         self.sounds = Sounds()

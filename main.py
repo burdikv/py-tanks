@@ -1,5 +1,6 @@
 import gc
 import pygame
+from ai import AI
 from game import Game
 from tank import Player
 from tank import Enemy
@@ -28,10 +29,12 @@ def setup():
     global _game
     _game = Game(screen, clock, SCALE_FACTOR)
     _game.player = Player(width / 2, height / 2, -90, _game)
-    _game.enemies.append(Enemy(width / 4, height / 2, 180, _game))
-    _game.enemies.append(Enemy(3 * width / 4, height / 2, 0, _game))
+    _game.enemies.append(Enemy(width / 4, height / 2, 180, _game, AI(_game)))
+    _game.enemies.append(Enemy(3 * width / 4, height / 2, 0, _game, AI(_game)))
+    _game.enemies.append(Enemy(width / 2, height / 4, -90, _game, AI(_game)))
+    _game.enemies.append(Enemy(width / 2, 3 * height / 4, 90, _game, AI(_game)))
 
-    _game.player.apply_power_up(EnergyShield(-1, _game.player, _game))
+    _game.player.apply_power_up(EnergyShield(10, _game.player, _game))
 
 
 def restart():
@@ -95,7 +98,8 @@ while running:
                 if e != enemy:
                     otherTanks.append(e)
             if _game.ui.state == _game.ui.gameplay:
-                _game.ai.move(enemy)
+                # _game.ai.move(enemy)
+                enemy.ai.control()
             enemy.move(otherTanks)
         enemy.render()
         if enemy.isDead:
