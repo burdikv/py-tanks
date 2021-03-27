@@ -28,23 +28,34 @@ class UI(object):
         text_rect = text.get_rect()
         text_rect.center = self.surfRect.center
         self.screen.blit(text, text_rect)
+        return text_rect
 
-    def text(self, pos, color, message):
+    def text(self, pos, color, message, centered=False):
         text = self.fontNormal.render(message, True, color)
         text_rect = text.get_rect()
-        text_rect.topleft = pos
+        if centered:
+            text_rect.center = pos
+        else:
+            text_rect.topleft = pos
         self.screen.blit(text, text_rect)
+        return text_rect
 
     def render(self):
         if self.state == self.gameover:
             self.draw_background()
-            self.text_centered("Game Over")
+            r = self.text_centered("Game Over")
+            p = (r.centerx, r.centery + r.height)
+            self.text(p, (255, 255, 255), "Press <R> to restart...", True)
         elif self.state == self.gamewin:
             self.draw_background()
-            self.text_centered("You Win")
+            r = self.text_centered("You Win")
+            p = (r.centerx, r.centery + r.height)
+            self.text(p, (255, 255, 255), "Press <R> to restart...", True)
         elif self.state == self.pause:
             self.draw_background()
-            self.text_centered("Press <SPACE> to resume...")
+            r = self.text_centered("Press <SPACE> to resume...")
+            p = (r.centerx, r.centery + r.height)
+            self.text(p, (255, 255, 255), "or <R> to restart...", True)
         elif self.state == self.gamestart:
             self.draw_background()
             self.text_centered("Press <SPACE> to start...")
