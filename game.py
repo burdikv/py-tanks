@@ -14,6 +14,6 @@ class Game(object):
         self.enemies = []
         self.player = None
         self.sprites = Sprites()
-#        self.ai = AI()
-        self.ui = UI(self.screen)
+        # draw_fps=True in UI
+        self.ui = UI(self.screen, self.clock, True)
         self.sounds = Sounds()

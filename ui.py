@@ -2,19 +2,21 @@ import pygame
 
 
 class UI(object):
-    def __init__(self, screen):
+    def __init__(self, screen, clock, draw_fps=False):
         self.gamestart = 0
         self.gameplay = 1
         self.gameover = 2
         self.gamewin = 3
         self.pause = 4
         self.state = self.gamestart
+        self.drawFps = draw_fps
         self.screen = screen
+        self.clock = clock
         self.surf = pygame.Surface((self.screen.get_width(), self.screen.get_height()), pygame.SRCALPHA)
         self.surfRect = self.surf.get_rect()
         self.surfRect.center = (self.screen.get_width() // 2, self.screen.get_height() // 2)
         self.fontBold = pygame.font.Font("Fonts\\Roboto\\Roboto-Bold.ttf", 60)
-        self.fontNormal = pygame.font.Font("Fonts\\Roboto\\Roboto-Regular.ttf", 60)
+        self.fontNormal = pygame.font.Font("Fonts\\Roboto\\Roboto-Regular.ttf", 20)
 
     def draw_background(self):
         # pass
@@ -25,6 +27,12 @@ class UI(object):
         text = self.fontBold.render(message, True, (255, 255, 255))
         text_rect = text.get_rect()
         text_rect.center = self.surfRect.center
+        self.screen.blit(text, text_rect)
+
+    def text(self, pos, color, message):
+        text = self.fontNormal.render(message, True, color)
+        text_rect = text.get_rect()
+        text_rect.topleft = pos
         self.screen.blit(text, text_rect)
 
     def render(self):
@@ -40,3 +48,5 @@ class UI(object):
         elif self.state == self.gamestart:
             self.draw_background()
             self.text_centered("Press <SPACE> to start...")
+        if self.drawFps:
+            self.text((20, 20), (255, 0, 0), f"FPS: {int(round(self.clock.get_fps()))}")

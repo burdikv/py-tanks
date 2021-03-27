@@ -25,3 +25,6 @@ class Clock(object):
     def tick_busy_loop(self, framerate = 0):
         self.framesCount += 1
         return self.clock.tick_busy_loop(framerate)
+
+    def get_fps(self):
+        return self.clock.get_fps()
