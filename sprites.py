@@ -1,32 +1,37 @@
 import pygame
+import os
 
 
 class Sprites(object):
     def __init__(self):
         self.sprites = {}
-        self.sprites["player.tank.body"] = pygame.image.load("Sprites\\Hulls_Color_B\\Hull_01.png").convert()
-        self.sprites["player.tank.turret"] = pygame.image.load("Sprites\\Weapon_Color_B\\Gun_01.png").convert()
-        self.sprites["player.tank.track.a"] = pygame.image.load("Sprites\\Tracks\\Track_2_A.png").convert()
-        self.sprites["player.tank.track.b"] = pygame.image.load("Sprites\\Tracks\\Track_2_B.png").convert()
-        self.sprites["enemy.tank.body"] = pygame.image.load("Sprites\\Hulls_Color_D\\Hull_01.png").convert()
-        self.sprites["enemy.tank.turret"] = pygame.image.load("Sprites\\Weapon_Color_D\\Gun_01.png").convert()
-        self.sprites["enemy.tank.track.a"] = pygame.image.load("Sprites\\Tracks\\Track_2_A.png").convert()
-        self.sprites["enemy.tank.track.b"] = pygame.image.load("Sprites\\Tracks\\Track_2_B.png").convert()
-        self.sprites["shell.medium"] = pygame.image.load("Sprites\\Effects\\Medium_Shell.png").convert()
+        self.sprites["player.tank.body"] = pygame.image.load(os.path.join("Sprites", "Hulls_Color_B", "Hull_01.png")).convert()
+        self.sprites["player.tank.turret"] = pygame.image.load(os.path.join("Sprites", "Weapon_Color_B", "Gun_01.png")).convert()
+        pathTracks = os.path.join("Sprites", "Tracks")
+        self.sprites["player.tank.track.a"] = pygame.image.load(os.path.join(pathTracks, "Track_2_A.png")).convert()
+        self.sprites["player.tank.track.b"] = pygame.image.load(os.path.join(pathTracks, "Track_2_B.png")).convert()
+        path = os.path.join("Sprites", "Hulls_Color_D")
+        self.sprites["enemy.tank.body"] = pygame.image.load(os.path.join("Sprites", "Hulls_Color_D", "Hull_01.png")).convert()
+        self.sprites["enemy.tank.turret"] = pygame.image.load(os.path.join("Sprites", "Weapon_Color_D", "Gun_01.png")).convert()
+        self.sprites["enemy.tank.track.a"] = pygame.image.load(os.path.join(pathTracks, "Track_2_A.png")).convert()
+        self.sprites["enemy.tank.track.b"] = pygame.image.load(os.path.join(pathTracks, "Track_2_B.png")).convert()
+        path = os.path.join("Sprites", "Effects")
+        self.sprites["shell.medium"] = pygame.image.load(os.path.join(path, "Medium_Shell.png")).convert()
+        path2 = os.path.join(path, "Sprites")
         for i in range(9):
-            self.sprites["explosion." + str(i)] = pygame.image.load(f"Sprites\\Effects\\Sprites\\Sprite_Effects_Explosion_00{i}.png").convert()
+            self.sprites["explosion." + str(i)] = pygame.image.load(os.path.join(path2, f"Sprite_Effects_Explosion_00{i}.png")).convert()
         for i in range(4):
-            self.sprites["shot.flame.a." + str(i)] = pygame.image.load(f"Sprites\\Effects\\Sprites\\Sprite_Fire_Shots_Shot_A_00{i}.png").convert()
+            self.sprites["shot.flame.a." + str(i)] = pygame.image.load(os.path.join(path2, f"Sprite_Fire_Shots_Shot_A_00{i}.png")).convert()
         for i in range(4):
-            self.sprites["shot.hit.a." + str(i)] = pygame.image.load(f"Sprites\\Effects\\Sprites\\Sprite_Fire_Shots_Impact_A_00{i}.png").convert()
+            self.sprites["shot.hit.a." + str(i)] = pygame.image.load(os.path.join(path2, f"Sprite_Fire_Shots_Impact_A_00{i}.png")).convert()
 
         # this is true for current sprites, if other sprites appear in future, they might need another transparency color
         for name in self.sprites:
             self.sprites[name].set_colorkey((0, 0, 0), pygame.RLEACCEL)
 
         # special transparency for these sprites is needed
-        self.sprites["any.tank.energyshield"] = pygame.image.load("Sprites\\Effects\\shield.png").convert_alpha()
-        self.sprites["any.tank.energyshield.a"] = pygame.image.load("Sprites\\Effects\\spr_shield.png").convert_alpha()
+        self.sprites["any.tank.energyshield"] = pygame.image.load(os.path.join(path, "shield.png")).convert_alpha()
+        self.sprites["any.tank.energyshield.a"] = pygame.image.load(os.path.join(path, "spr_shield.png")).convert_alpha()
 
     def get_sprite(self, name):
         if name in self.sprites:

@@ -1,4 +1,5 @@
 import pygame
+import os
 
 
 class UI(object):
@@ -15,8 +16,8 @@ class UI(object):
         self.surf = pygame.Surface((self.screen.get_width(), self.screen.get_height()), pygame.SRCALPHA)
         self.surfRect = self.surf.get_rect()
         self.surfRect.center = (self.screen.get_width() // 2, self.screen.get_height() // 2)
-        self.fontBold = pygame.font.Font("Fonts\\Roboto\\Roboto-Bold.ttf", 60)
-        self.fontNormal = pygame.font.Font("Fonts\\Roboto\\Roboto-Regular.ttf", 20)
+        self.fontBold = pygame.font.Font(os.path.join("Fonts", "Roboto", "Roboto-Bold.ttf"), 60)
+        self.fontNormal = pygame.font.Font(os.path.join("Fonts", "Roboto", "Roboto-Regular.ttf"), 20)
 
     def draw_background(self):
         # pass

@@ -1,14 +1,15 @@
 import pygame
+import os
 
 
 class Sounds(object):
     def __init__(self):
         self.sounds = {}
-        sound_files = {"sound.shoot": "Sounds\\mixkit-war-explosions-2773.wav",
-                       "sound.hit": "Sounds\\mixkit-hitting-metal-armor-2775.wav",
-                       "sound.explosion": "Sounds\\mixkit-war-field-explosion-1702.wav",
-                       "sound.tank": "Sounds\\mixkit-tank-engine-working-2753.wav",
-                       "sound.hit.shield": "Sounds\\mixkit-spring-metal-hit-2302.wav"}
+        sound_files = {"sound.shoot": os.path.join("Sounds", "mixkit-war-explosions-2773.wav"),
+                       "sound.hit": os.path.join("Sounds", "mixkit-hitting-metal-armor-2775.wav"),
+                       "sound.explosion": os.path.join("Sounds", "mixkit-war-field-explosion-1702.wav"),
+                       "sound.tank": os.path.join("Sounds", "mixkit-tank-engine-working-2753.wav"),
+                       "sound.hit.shield": os.path.join("Sounds", "mixkit-spring-metal-hit-2302.wav")}
         for name in sound_files:
             self.sounds[name] = [sound_files[name], pygame.mixer.Sound(sound_files[name])]
 
